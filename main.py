@@ -22,12 +22,12 @@ users = {}
 async def reply_message(message: Message):
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
-        await message.reply("Использование: /reply <user_id> <текст>")
+        await message.reply("Ishlatish: /reply <user_id> <текст>")
         return
     
     parts = args[1].split(maxsplit=1)
     if len(parts) < 2:
-        await message.reply("Использование: /reply <user_id> <текст>")
+        await message.reply("Ishlatish: /reply <user_id> <текст>")
         return
     
     user_id = int(parts[0])
@@ -35,15 +35,15 @@ async def reply_message(message: Message):
     
     try:
         await bot.send_message(user_id, f"Admindan javob: {reply_text}")
-        await message.reply("Ответ отправлен.")
+        await message.reply("Javob yuborildi.")
     except Exception as e:
-        await message.reply(f"Ошибка при отправке: {e}")
+        await message.reply(f"Jo'natishda xatolik: {e}")
 
 @router.message(lambda message: not message.text.startswith("/"))  # Игнорируем команды
 async def forward_message(message: Message):
     user = message.from_user
     users[user.id] = user.username  # Сохраняем ID и username пользователя
-    text = f"Сообщение от @{user.username or 'Без username'} (ID: {user.id}):\n{message.text}"
+    text = f"Xabar jo\'natuvchisi: @{user.username or 'Без username'} (ID: {user.id}):\n{message.text}"
     await bot.send_message(ADMIN_ID, text)
 
 async def main():

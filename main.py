@@ -7,7 +7,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.types import CallbackQuery
 # Из своего файла импортирую TOKEN и ADMIN_ID
-from api import TOKEN, ADMIN_ID, ALLOWED_USERS
+from api import TOKEN, ADMIN_ID,ADMIN_ID_S, ALLOWED_USERS
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
@@ -68,7 +68,7 @@ async def forward_message(message: Message):
     user = message.from_user
     users[user.id] = user.username  # Сохраняем ID и username пользователя
     text = f"📩 <b>Yangi xabar!</b> \n👤 <b>Kimdan:</b> @{user.username or 'No username'}\n🆔 <b>ID:</b> `<code>{user.id}</code>`\n\n💬 <b>Xabar:</b> \n{message.text}\n\n<b>Javob yozish</b> <code>/reply {user.id} </code>"
-    await bot.send_message(ADMIN_ID, text, parse_mode="HTML",)
+    await bot.send_message(ADMIN_ID,ADMIN_ID_S, text, parse_mode="HTML",)
 
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)

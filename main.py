@@ -68,7 +68,13 @@ async def forward_message(message: Message):
     user = message.from_user
     users[user.id] = user.username  # Сохраняем ID и username пользователя
     text = f"📩 <b>Yangi xabar!</b> \n👤 <b>Kimdan:</b> @{user.username or 'No username'}\n🆔 <b>ID:</b> `<code>{user.id}</code>`\n\n💬 <b>Xabar:</b> \n{message.text}\n\n<b>Javob yozish</b> <code>/reply {user.id} </code>"
-    await bot.send_message(ADMIN_ID,ADMIN_ID_S, text, parse_mode="HTML",)
+    await bot.send_message(ADMIN_ID, text, parse_mode="HTML",)
+@router.message(lambda message: not message.text.startswith("/"))  # Игнорируем команды
+async def forward_message(message: Message):
+    user = message.from_user
+    users[user.id] = user.username  # Сохраняем ID и username пользователя
+    text = f"📩 <b>Yangi xabar!</b> \n👤 <b>Kimdan:</b> @{user.username or 'No username'}\n🆔 <b>ID:</b> `<code>{user.id}</code>`\n\n💬 <b>Xabar:</b> \n{message.text}\n\n<b>Javob yozish</b> <code>/reply {user.id} </code>"
+    await bot.send_message(ADMIN_ID_S, text, parse_mode="HTML",)
 
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)

@@ -65,6 +65,8 @@ async def reply_message(message: Message):
 
 @router.message(lambda message: not message.text.startswith("/"))  # Игнорируем команды
 async def forward_message(message: Message):
+    accept="Ding-dong! 📩 Xabaringiz kelib tushdi! Endi Senpai javob berishini kutish qoldi~ 🎶✨"
+    await bot.send_message(accept)
     user = message.from_user
     users[user.id] = user.username  # Сохраняем ID и username пользователя
     text = f"📩 <b>Yangi xabar!</b> \n👤 <b>Kimdan:</b> @{user.username or 'No username'}\n🆔 <b>ID:</b> `<code>{user.id}</code>`\n\n💬 <b>Xabar:</b> \n{message.text}\n\n<b>Javob yozish</b> <code>/reply {user.id} </code>"
